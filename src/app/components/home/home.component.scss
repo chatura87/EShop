@@ -1,0 +1,23 @@
+@use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+@import "../../../variables.scss";
+
+.example-container {
+  min-height: 90vh !important;
+  margin: 18px !important;
+  -moz-box-shadow: 0 0 38px 3px #6bb3e3;
+  -webkit-box-shadow: 0 0 38px 3px #6bb3e3;
+  box-shadow: 0 0 38px 3px #6bb3e3;
+  overflow: auto;
+  background-color: mat.get-color-from-palette($accentPalette);
+}
+
+.menu-item {
+  color: #ffffff;
+}
+
+.side-nav {
+  width: 15%;
+  background-color: mat-color($primaryPalette);
+}
+

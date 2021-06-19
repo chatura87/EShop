@@ -1,18 +1,55 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
+import {ProductComponent} from './components/product/product.component';
+import {CartComponent} from './components/cart/cart.component';
+import {ProductItemComponent} from './components/product-item/product-item.component';
+import {ProductContainerComponent} from './components/product-container/product-container.component';
+import {HomeComponent} from './components/home/home.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {eShopInterceptor} from "./services/e-shop-interceptor.service";
+import {AngularMaterialModule} from "./angular-material.module";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {UsernamePipe} from "./pipes/username.pipe";
+import {ReactiveFormsModule} from "@angular/forms";
+import {UnautorizedComponent} from './components/unautorized/unautorized.component';
+import {WelcomeComponent} from './components/welcome/welcome.component';
+import {NgxSpinnerModule} from "ngx-spinner";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProductComponent,
+    CartComponent,
+    ProductItemComponent,
+    ProductContainerComponent,
+    HomeComponent,
+    UsernamePipe,
+    UnautorizedComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularMaterialModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
+    BrowserAnimationsModule
   ],
-  providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: eShopInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

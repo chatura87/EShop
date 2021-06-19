@@ -1,0 +1,10 @@
+@use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+@import "../../../variables.scss";
+
+p {
+  color: mat.get-color-from-palette($primaryPalette);
+  text-align: center;
+  font-size: x-large;
+  padding-top: 25%;
+}
