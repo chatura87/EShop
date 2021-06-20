@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  <ng-container *ngIf="user.role == userRole.ADMIN">
+    <button mat-icon-button (click)="toggleSideNav()" [attr.aria-label]="'Open or close the navigation menu'">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </ng-container>
+  <h1>E-Shop</h1>
+  <span class="spacer"></span>
+  <h2>{{user | username: 'Hi'}}</h2>
+  <button mat-icon-button [routerLink]="['/cart']" [attr.aria-label]="'Go to cart'">
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+  <button mat-icon-button (click)="logout()" [attr.aria-label]="'Log out'">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
+<router-outlet></router-outlet>

@@ -1,0 +1,11 @@
+<mat-sidenav-container class="example-container" autosize>
+  <mat-sidenav #sidenav mode="side" role="navigation" [opened]="commonService.toggleStatus$ |async" class="side-nav" >
+    <mat-nav-list>
+      <a mat-list-item routerLink="product-mgt" routerLinkActive="active-link">Products</a>
+      <a mat-list-item routerLink="products" routerLinkActive="active-link">Item List</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

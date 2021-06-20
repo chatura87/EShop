@@ -1,0 +1,32 @@
+@use "~@angular/material" as mat;
+@import "../../../variables";
+
+.mat-card {
+  min-width: 300px;
+  min-height: 24%;
+  float: left;
+  text-align: center;
+  overflow: hidden;
+  margin-left: 35px;
+  margin-bottom: 35px;
+}
+
+.col-2 {
+  text-align: left !important;
+}
+
+.action-buttons {
+  float: right;
+  margin-left: 5px;
+}
+
+img {
+  height: 100px;
+  width: 100px;
+}
+
+:host {
+  display: block;
+  background-color: mat.get-color-from-palette($accentPalette);
+}
+

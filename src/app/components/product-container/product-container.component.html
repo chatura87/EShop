@@ -1,0 +1,17 @@
+<div role="list down products">
+  <div class="filter">
+    <mat-icon>search</mat-icon>
+    <mat-form-field appearance="outline">
+      <mat-label>Filter</mat-label>
+      <input matInput placeholder="Start typing.." [formControl]="filter" hint="Start typing">
+      <mat-hint *ngIf="recordCount >0">Search has {{recordCount}} records</mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="product-item">
+    <ng-container *ngFor="let product of products;index as i">
+      <app-product-item [product]="product" [attr.aria-label]="'Product card'"></app-product-item>
+    </ng-container>
+  </div>
+</div>
+
+

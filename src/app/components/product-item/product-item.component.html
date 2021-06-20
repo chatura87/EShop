@@ -1,0 +1,22 @@
+<mat-card>
+  <h2>{{_product.name}}</h2>
+  <mat-card-content>
+    <mat-grid-list cols="2">
+      <mat-grid-tile>
+        <img [src]="_product.defaultImage">
+      </mat-grid-tile>
+      <mat-grid-tile class="col-2">{{_product.description}}</mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+  <hr>
+  <mat-card-actions>
+    <span class="action-buttons">
+    <button mat-raised-button color="primary" [attr.aria-label]="'Information button'">
+      <mat-icon>info</mat-icon>
+    </button>
+      <button mat-raised-button color="primary" [attr.aria-label]="'Add to my cart'">
+      <mat-icon>add_shopping_cart</mat-icon>
+    </button>
+    </span>
+  </mat-card-actions>
+</mat-card>

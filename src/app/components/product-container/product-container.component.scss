@@ -1,0 +1,32 @@
+@use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+@import "../../../variables";
+
+$height:800px;
+
+.filter {
+  text-align: right;
+  padding-right: 30px;
+  width: 95%;
+}
+
+.product-item {
+  width: 100%;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+:host {
+  display: block;
+  background-color: mat.get-color-from-palette($accentPalette);
+  height: $height;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+mat-grid-tile {
+  height: 5px;
+}
