@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavComponent } from './nav.component';
 import {ActivatedRoute, RouterModule} from "@angular/router";
+import {CommonService} from "../../services/common.service";
 
 describe('HomeComponent', () => {
   let component: NavComponent;
@@ -10,7 +11,8 @@ describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ NavComponent ],
-      imports:[RouterModule.forRoot([]),]
+      imports:[RouterModule.forRoot([])],
+      providers:[CommonService]
     })
     .compileComponents();
   });

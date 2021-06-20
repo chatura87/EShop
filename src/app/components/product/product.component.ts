@@ -40,7 +40,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly productService: ProductService,
-    private snackBar: MatSnackBar) {
+    private readonly snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {

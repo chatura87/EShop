@@ -4,9 +4,11 @@ import {AppComponent} from './app.component';
 import {CommonService} from "./services/common.service";
 import {SwUpdate} from "@angular/service-worker";
 import {ActivatedRoute} from "@angular/router";
+import {SwUpdateServerMock} from "./services/ServiceWorkerMock";
 
 describe('AppComponent', () => {
   beforeEach(async () => {
+    // spyOn(, 'isEnabled').and.returnValue(false);
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
@@ -14,7 +16,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
-      providers: [CommonService, SwUpdate, ActivatedRoute]
+      providers: [CommonService, ActivatedRoute,{ provide: SwUpdate, useClass: SwUpdateServerMock }]
     }).compileComponents();
   });
 
