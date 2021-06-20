@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  ase_api_url:'http://localhost:8080'
 };
