@@ -63,13 +63,13 @@
         <mat-label>Filter</mat-label>
         <input matInput placeholder="Start typing" (keyup)="applyFilter($event)">
       </mat-form-field>
-      <button (click)="onSubmit()" mat-raised-button color="primary" [attr.aria-label]="'Save or update product'">
+      <button (click)="onSubmit()" mat-raised-button color="primary"  matTooltip="Save Product" [attr.aria-label]="'Save or update product'">
         <mat-icon>save_alt</mat-icon>
       </button>
-      <button mat-raised-button color="primary" (click)="resetModule()" [attr.aria-label]="'Reset form'">
+      <button mat-raised-button color="primary" (click)="resetModule()" matTooltip="Reset Form" [attr.aria-label]="'Reset form'">
         <mat-icon>clear</mat-icon>
       </button>
-      <button *ngIf="this.productForm.value.id >0" mat-raised-button color="primary" (click)="deleteProduct($event)" [attr.aria-label]="'Delete Product'">
+      <button *ngIf="this.productForm.value.id >0" mat-raised-button color="primary" (click)="deleteProduct()" matTooltip="Delete Product" [attr.aria-label]="'Delete Product'">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card-actions>

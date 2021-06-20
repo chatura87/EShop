@@ -1,7 +1,16 @@
+@use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+@import "../../../variables.scss";
+
 p {
   font-size: large;
   color: red;
   text-align: center;
   horiz-align: center;
   padding-top: 25%;
+}
+
+div {
+  background-color: mat.get-color-from-palette($accentPalette) !important;
+  min-height: 700px;
 }

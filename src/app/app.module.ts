@@ -9,7 +9,7 @@ import {ProductComponent} from './components/product/product.component';
 import {CartComponent} from './components/cart/cart.component';
 import {ProductItemComponent} from './components/product-item/product-item.component';
 import {ProductContainerComponent} from './components/product-container/product-container.component';
-import {HomeComponent} from './components/home/home.component';
+import {NavComponent} from './components/nav/nav.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {eShopInterceptor} from "./services/e-shop-interceptor.service";
 import {AngularMaterialModule} from "./angular-material.module";
@@ -30,7 +30,7 @@ import {NumberOnlyDirective} from "./directive/number-only.directive";
     CartComponent,
     ProductItemComponent,
     ProductContainerComponent,
-    HomeComponent,
+    NavComponent,
     UsernamePipe,
     UnauthorizedComponent,
     WelcomeComponent,

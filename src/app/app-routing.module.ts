@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from "./components/home/home.component";
+import {NavComponent} from "./components/nav/nav.component";
 import {ProductComponent} from "./components/product/product.component";
 import {CartComponent} from "./components/cart/cart.component";
 import {ProductContainerComponent} from "./components/product-container/product-container.component";
@@ -12,16 +12,17 @@ import {WelcomeComponent} from "./components/welcome/welcome.component";
 const routes: Routes = [
   {path: '', redirectTo: 'products', pathMatch: 'full'},
   {
-    path: 'home/:id', component: HomeComponent, resolve: {user: UserResolverService}, children: [
+    path: 'home/:id', component: NavComponent, resolve: {user: UserResolverService}, children: [
       {path: 'product-mgt', component: ProductComponent, canActivate: [AdminGuard]},
       {path: 'products', component: ProductContainerComponent, canActivate: [AdminGuard]}
     ]
   },
-  {path: 'admin', component: HomeComponent},
+  {path: 'admin', component: NavComponent},
   {path: 'cart', component: CartComponent},
   {path: 'products', component: ProductContainerComponent},
   {path: 'unauthorized', component: UnauthorizedComponent},
   {path: 'welcome', component: WelcomeComponent},
+  { path: '**', redirectTo: 'unauthorized', pathMatch: 'full' }
 ];
 
 @NgModule({

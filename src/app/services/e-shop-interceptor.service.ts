@@ -33,11 +33,11 @@ export class eShopInterceptor implements HttpInterceptor {
       tap((state: HttpEvent<any>) => {
         if (state instanceof HttpResponse) {
           this.cache.set(request.urlWithParams, state.clone())
-          // this.spinner.hide();
+          this.spinner.hide();
         }
         return state;
       }), catchError(error => {
-        // this.spinner.hide();
+        this.spinner.hide();
         return throwError(error)
       }))
   }
