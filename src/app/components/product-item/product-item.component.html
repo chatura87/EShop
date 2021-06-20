@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title>{{_product.name}}</mat-card-title>
+  <h2>{{_product.name}}</h2>
   <mat-card-content>
     <mat-grid-list cols="2">
       <mat-grid-tile>
@@ -8,9 +8,15 @@
       <mat-grid-tile class="col-2">{{_product.description}}</mat-grid-tile>
     </mat-grid-list>
   </mat-card-content>
-  <mat-action-list>
-    <button mat-icon-button class="primary">
+  <hr>
+  <mat-card-actions>
+    <span class="action-buttons">
+    <button mat-raised-button color="primary">
+      <mat-icon>info</mat-icon>
+    </button>
+      <button mat-raised-button color="primary">
       <mat-icon>add_shopping_cart</mat-icon>
     </button>
-  </mat-action-list>
+    </span>
+  </mat-card-actions>
 </mat-card>

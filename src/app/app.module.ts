@@ -16,9 +16,12 @@ import {AngularMaterialModule} from "./angular-material.module";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {UsernamePipe} from "./pipes/username.pipe";
 import {ReactiveFormsModule} from "@angular/forms";
-import {UnautorizedComponent} from './components/unautorized/unautorized.component';
+import {UnauthorizedComponent} from './components/unautorized/unauthorized.component';
 import {WelcomeComponent} from './components/welcome/welcome.component';
 import {NgxSpinnerModule} from "ngx-spinner";
+import {ScrollDirective} from "./directive/scroll.directive";
+import {LimitChars} from "./pipes/limt-chars";
+import {NumberOnlyDirective} from "./directive/number-only.directive";
 
 @NgModule({
   declarations: [
@@ -29,8 +32,11 @@ import {NgxSpinnerModule} from "ngx-spinner";
     ProductContainerComponent,
     HomeComponent,
     UsernamePipe,
-    UnautorizedComponent,
-    WelcomeComponent
+    UnauthorizedComponent,
+    WelcomeComponent,
+    ScrollDirective,
+    LimitChars,
+    NumberOnlyDirective
   ],
   imports: [
     BrowserModule,

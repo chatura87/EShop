@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.commonService.userSub.next(this.route.snapshot.data.user);
-   this.router.navigate([`/home/${this.commonService.userSub.getValue().id}/product-list`])
+   this.router.navigate([`/home/${this.commonService.userSub.getValue().id}/product-mgt`])
   }
 
 }

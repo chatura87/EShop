@@ -1,20 +1,20 @@
-import {DataSource, SelectionModel} from '@angular/cdk/collections';
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {Observable, of, Subject} from 'rxjs';
+import {of, Subject} from 'rxjs';
 import {Product} from 'src/app/models/product';
 import {ProductService} from "../../services/product.service";
-import {catchError, map, takeUntil, tap} from "rxjs/operators";
+import {catchError, map, takeUntil} from "rxjs/operators";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Action} from "../../enums/action";
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductComponent implements OnInit {
 
@@ -22,8 +22,6 @@ export class ProductComponent implements OnInit {
   displayColumns = ['name', 'description', 'price', 'discount', 'defaultImg', 'otherImg'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  selection = new SelectionModel<Product>(true, []);
-  getState: Observable<any> = of([]);
   destroySub = new Subject<void>();
 
   productForm = new FormGroup({
@@ -39,14 +37,12 @@ export class ProductComponent implements OnInit {
 
   constructor(
     private readonly productService: ProductService,
-    private snackBar: MatSnackBar,
-    private changeDetectionRef: ChangeDetectorRef) {
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
 
     this.productService.fetchtAll().pipe(takeUntil(this.destroySub)).subscribe(products => {
-      console.log(products)
       this.dataSource = new MatTableDataSource<Product>(products);
       setTimeout(() => {
         this.dataSource.paginator = this.paginator;
@@ -86,6 +82,7 @@ export class ProductComponent implements OnInit {
   }
 
   resetModule() {
+    this.productForm.reset();
   }
 
   populateFields(row: Product): void {

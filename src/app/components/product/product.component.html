@@ -11,29 +11,29 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="productForm">
       <mat-grid-list cols="2" rowHeight="320px">
         <mat-grid-tile>
-          <mat-card class="mat-card-in-grid" >
+          <mat-card class="mat-card-in-grid">
             <div>
-              <mat-form-field appearance="outline" >
+              <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
                 <input matInput formControlName="name"/>
               </mat-form-field>
             </div>
             <div>
-              <mat-form-field appearance="outline" >
+              <mat-form-field appearance="outline">
                 <mat-label>Description</mat-label>
-                <input matInput formControlName="description"/>
+                <textarea matInput formControlName="description"></textarea>
               </mat-form-field>
             </div>
             <div>
-              <mat-form-field appearance="outline" >
+              <mat-form-field appearance="outline">
                 <mat-label>price</mat-label>
-                <input matInput formControlName="price"/>
+                <input matInput numberOnly formControlName="price"/>
               </mat-form-field>
             </div>
             <div>
-              <mat-form-field appearance="outline" >
+              <mat-form-field appearance="outline">
                 <mat-label>Discount</mat-label>
-                <input matInput formControlName="discount"/>
+                <input matInput numberOnly formControlName="discount"/>
               </mat-form-field>
             </div>
           </mat-card>
@@ -41,72 +41,75 @@
         <mat-grid-tile>
           <mat-card class="mat-card-in-grid">
             <div>
-              <mat-form-field appearance="outline" >
+              <mat-form-field appearance="outline">
                 <mat-label>Default Image</mat-label>
                 <input matInput formControlName="defaultImage"/>
                 <mat-hint>Add image url</mat-hint>
               </mat-form-field>
             </div>
             <div>
-              <mat-form-field appearance="outline" >
+              <mat-form-field appearance="outline">
                 <mat-label>Other Images</mat-label>
                 <textarea matInput formControlName="images"></textarea>
-                <mat-hint>Add a url on each line</mat-hint>
+                <mat-hint>A comma separated list</mat-hint>
               </mat-form-field>
             </div>
           </mat-card>
         </mat-grid-tile>
       </mat-grid-list>
     </form>
-      <mat-card-actions class="footer">
-        <button type="submit" mat-raised-button color="primary">
-          <mat-icon>save_alt</mat-icon>
-        </button>
-        <button mat-raised-button color="primary" (click)="resetModule()">
-          <mat-icon>clear</mat-icon>
-        </button>
-        <button *ngIf="this.productForm.value.id >0" mat-raised-button color="primary" (click)="deleteProduct($event)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </mat-card-actions>
+    <mat-card-actions class="footer">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Start typing" (keyup)="applyFilter($event)">
+      </mat-form-field>
+      <button (click)="onSubmit()" mat-raised-button color="primary">
+        <mat-icon>save_alt</mat-icon>
+      </button>
+      <button mat-raised-button color="primary" (click)="resetModule()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <button *ngIf="this.productForm.value.id >0" mat-raised-button color="primary" (click)="deleteProduct($event)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+    <div class="table-view">
+      <table mat-table [dataSource]="dataSource" matSort>
 
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Filter</mat-label>
-      <input matInput placeholder="Start typing" (keyup)="applyFilter($event)">
-    </mat-form-field>
-    <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-      </ng-container>
+        <ng-container matColumnDef="description" >
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+          <td mat-cell *matCellDef="let element"> {{element.description | limitChars:75}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description  </th>
-        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-      </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center" mat-sort-header> Price</th>
+          <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.price | currency}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price  </th>
-        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-      </ng-container>
+        <ng-container matColumnDef="discount">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center" mat-sort-header>Discount</th>
+          <td mat-cell *matCellDef="let element" style="text-align: center"> {{element.discount| number}} </td>
+        </ng-container>
+        <ng-container matColumnDef="defaultImg">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"mat-sort-header>Defalut Image</th>
+          <td mat-cell *matCellDef="let element" style="text-align: center"> <img [src]="element.defaultImage"/></td>
+        </ng-container>
+        <ng-container matColumnDef="otherImg">
+          <th mat-header-cell *matHeaderCellDef style="justify-content: center !important;" mat-sort-header>Other Images</th>
+          <td mat-cell *matCellDef="let element" style="text-align: center">
+            <span style="float: left;padding-right: 5px" *ngFor="let img of element.images"><img [src]="img"/></span>
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="discount">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Discount </th>
-        <td mat-cell *matCellDef="let element"> {{element.discount}} </td>
-      </ng-container>
-      <ng-container matColumnDef="defaultImg">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Defalut Image </th>
-        <td mat-cell *matCellDef="let element"><img [src]="element.defaultImage" /> </td>
-      </ng-container>
-      <ng-container matColumnDef="otherImg">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Other Images </th>
-        <td mat-cell *matCellDef="let element"> <div *ngFor="let img of element.images"><img [src]="img" /> </div></td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayColumns" (click)="populateFields(row)"></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns" (click)="populateFields(row)"></tr>
+      </table>
+    </div>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </mat-card-content>
 </mat-card>

@@ -12,6 +12,6 @@ export class ProductResolveService implements Resolve<Observable<Product[]>>{
   constructor(private readonly productService: ProductService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Observable<Product[]>> | Promise<Observable<Product[]>> | Observable<Product[]> {
-    return this.productService.fetchtAll();
+    return this.productService.filterByPage(1,50);
   }
 }

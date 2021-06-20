@@ -21,7 +21,6 @@ export class eShopInterceptor implements HttpInterceptor {
     }
 
     const cachedResponse: HttpResponse<any> | undefined = this.cache.get(request.urlWithParams);
-    console.log(this.cache.size);
     if (cachedResponse) {
       return of(cachedResponse.clone());
     }
