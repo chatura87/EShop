@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
-import {ProductComponent} from './components/product/product.component';
+import {ProductComponent} from './components/admin/product/product.component';
 import {CartComponent} from './components/cart/cart.component';
 import {ProductItemComponent} from './components/product-item/product-item.component';
 import {ProductContainerComponent} from './components/product-container/product-container.component';

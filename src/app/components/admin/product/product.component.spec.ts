@@ -3,7 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ProductComponent} from './product.component';
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
-import {ProductService} from "../../services/product.service";
+import {ProductService} from "../../../services/product.service";
 import {MatSort, MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {By} from "@angular/platform-browser";

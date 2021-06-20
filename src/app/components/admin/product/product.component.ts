@@ -9,8 +9,8 @@ import {of, Subject} from 'rxjs';
 import {catchError, map, takeUntil} from "rxjs/operators";
 
 import {Product} from 'src/app/models/product';
-import {ProductService} from "../../services/product.service";
-import {Action} from "../../enums/action";
+import {ProductService} from "../../../services/product.service";
+import {Action} from "../../../enums/action";
 
 @Component({
   selector: 'app-product',
