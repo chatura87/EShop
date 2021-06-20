@@ -1,10 +1,9 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {shareReplay} from 'rxjs/operators';
-import {environment} from 'src/environments/environment';
-import {Product} from '../models/product';
-import {Page, PageRequest} from "../datasources/page";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +16,11 @@ export class ProductService {
   }
 
   fetchtAll(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.API_URL).pipe(shareReplay({bufferSize: 1, refCount: true}));
+    return this.http.get<Product[]>(this.API_URL).pipe(shareReplay({ bufferSize: 1, refCount: true }));
   }
 
   fetchtByName(name: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.API_URL}?q=${name}`).pipe(shareReplay({bufferSize: 1, refCount: true}));
+    return this.http.get<Product[]>(`${this.API_URL}?q=${name}`).pipe(shareReplay({ bufferSize: 1, refCount: true }));
   }
 
   filterByPage(pageNumber: number, entries: number): Observable<Product[]> {

@@ -2,19 +2,15 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
-  ElementRef, HostListener,
-  NgZone,
+  Component, NgZone,
   OnInit
 } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Observable, of, Subject} from "rxjs";
-import {FormControl} from "@angular/forms";
-import {debounceTime, switchMap, takeUntil} from "rxjs/operators";
-import {ProductService} from "../../services/product.service";
-import {Sort} from "../../datasources/page";
-import {PaginationDataSource} from "../../datasources/PaginationDataSource";
-import {Product} from "../../models/product";
+import { FormControl } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
+import { Subject } from "rxjs";
+import { debounceTime, switchMap, takeUntil } from "rxjs/operators";
+import { Product } from "../../models/product";
+import { ProductService } from "../../services/product.service";
 
 @Component({
   selector: 'app-product-container',
@@ -34,9 +30,9 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
   destroySub = new Subject();
 
   constructor(private readonly route: ActivatedRoute,
-              private readonly productService: ProductService,
-              private readonly changeDetectorRef: ChangeDetectorRef,
-              private zone: NgZone) {
+    private readonly productService: ProductService,
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private zone: NgZone) {
   }
 
   ngOnInit(): void {
