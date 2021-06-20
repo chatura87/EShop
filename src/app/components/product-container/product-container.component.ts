@@ -1,19 +1,9 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef, HostListener,
-  NgZone,
-  OnInit
-} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {Observable, of, Subject} from "rxjs";
+import {Subject} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {debounceTime, switchMap, takeUntil} from "rxjs/operators";
 import {ProductService} from "../../services/product.service";
-import {Sort} from "../../datasources/page";
-import {PaginationDataSource} from "../../datasources/PaginationDataSource";
 import {Product} from "../../models/product";
 
 @Component({

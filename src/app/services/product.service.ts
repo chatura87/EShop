@@ -4,7 +4,6 @@ import {Observable} from 'rxjs';
 import {shareReplay} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
 import {Product} from '../models/product';
-import {Page, PageRequest} from "../datasources/page";
 
 @Injectable({
   providedIn: 'root'

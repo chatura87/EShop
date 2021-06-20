@@ -98,7 +98,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.productForm.reset();
     switch (action) {
       case Action.DELETE: {
-        const index = this.dataSource.data.indexOf(data);
+        const index = this.dataSource.data.map(product => product.id).indexOf(data.id);
         this.dataSource.data.splice(index, 1);
         this.setDataSource(this.dataSource.data);
         return;
