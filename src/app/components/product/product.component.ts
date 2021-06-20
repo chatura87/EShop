@@ -1,13 +1,15 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatSnackBar} from "@angular/material/snack-bar";
+
 import {of, Subject} from 'rxjs';
+import {catchError, map, takeUntil} from "rxjs/operators";
+
 import {Product} from 'src/app/models/product';
 import {ProductService} from "../../services/product.service";
-import {catchError, map, takeUntil} from "rxjs/operators";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {Action} from "../../enums/action";
 
 @Component({
@@ -16,12 +18,14 @@ import {Action} from "../../enums/action";
   styleUrls: ['./product.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy {
 
   dataSource!: MatTableDataSource<Product>;
   displayColumns = ['name', 'description', 'price', 'discount', 'defaultImg', 'otherImg'];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   destroySub = new Subject<void>();
 
   productForm = new FormGroup({
@@ -29,11 +33,10 @@ export class ProductComponent implements OnInit {
     name: new FormControl('', Validators.required),
     description: new FormControl('', [Validators.required]),
     price: new FormControl('', Validators.required),
-    discount: new FormControl(0, [Validators.required, Validators.pattern("^[0-9]*$")]),
+    discount: new FormControl(0, [Validators.required]),
     defaultImage: new FormControl('', Validators.required),
     images: new FormControl('')
   });
-
 
   constructor(
     private readonly productService: ProductService,
@@ -41,15 +44,15 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.productService.fetchtAll().pipe(takeUntil(this.destroySub)).subscribe(products => {
-      this.dataSource = new MatTableDataSource<Product>(products);
-      setTimeout(() => {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort
+    this.productService.fetchtAll()
+      .pipe(takeUntil(this.destroySub))
+      .subscribe(products => {
+        this.dataSource = new MatTableDataSource<Product>(products);
+        setTimeout(() => {
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort
+        })
       })
-
-    })
   }
 
   private setDataSource(products: Product[]) {
@@ -117,12 +120,16 @@ export class ProductComponent implements OnInit {
     this.snackBar.open("Product save failed");
   }
 
-  deleteProduct(e: any) {
-    e.preventDefault();
+  deleteProduct() {
     this.productService.delete(this.productForm.value.id)
       .pipe(
         takeUntil(this.destroySub),
         map((product: Product) => this.onSuccess(this.productForm.value, Action.DELETE)),
         catchError(error => of(this.handleError(error)))).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.destroySub.next();
+    this.destroySub.complete();
   }
 }

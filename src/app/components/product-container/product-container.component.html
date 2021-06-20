@@ -1,4 +1,4 @@
-<div class="scroll">
+<div class="scroll" role="list down products">
   <div class="filter">
     <mat-icon>search</mat-icon>
     <mat-form-field appearance="outline">
@@ -9,7 +9,7 @@
   </div>
   <div class="product-item">
     <ng-container *ngFor="let product of products;index as i">
-      <app-product-item [product]="product"></app-product-item>
+      <app-product-item [product]="product" [attr.aria-label]="'Product card'"></app-product-item>
     </ng-container>
   </div>
 </div>
