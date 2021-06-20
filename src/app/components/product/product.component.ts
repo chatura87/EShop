@@ -1,16 +1,16 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from "@angular/material/snack-bar";
 
-import {of, Subject} from 'rxjs';
-import {catchError, map, takeUntil} from "rxjs/operators";
+import { of, Subject } from 'rxjs';
+import { catchError, map, takeUntil } from "rxjs/operators";
 
-import {Product} from 'src/app/models/product';
-import {ProductService} from "../../services/product.service";
-import {Action} from "../../enums/action";
+import { Product } from 'src/app/models/product';
+import { ProductService } from "../../services/product.service";
+import { Action } from "../../enums/action";
 
 @Component({
   selector: 'app-product',
@@ -92,13 +92,13 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.productForm.patchValue(row);
   }
 
-//TODO: take this to a service
+  //TODO: take this to a service
   private onSuccess(data: Product, action: string) {
     this.snackBar.open(`Product ${action} successfully`);
     this.productForm.reset();
     switch (action) {
       case Action.DELETE: {
-        const index = this.dataSource.data.indexOf(data);
+        const index = this.dataSource.data.map(product => product.id).indexOf(data.id);
         this.dataSource.data.splice(index, 1);
         this.setDataSource(this.dataSource.data);
         return;
