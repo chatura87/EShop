@@ -16,7 +16,7 @@ describe('ProductService', () => {
     TestBed.configureTestingModule({imports: [HttpClientTestingModule]});
     httpTestingController = TestBed.get(HttpTestingController);
     product = {
-      id: '1',
+      id: 1,
       name: "John",
       description: "test description",
       discount: 30,
@@ -37,7 +37,7 @@ describe('ProductService', () => {
   });
 
   it('fetchAll() should return value from observable',
-    (done: DoneFn) => {
+    async (done: DoneFn) => {
       productService.fetchtAll().subscribe(value => {
         expect(value).toBeGreaterThan(0);
         done();

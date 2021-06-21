@@ -9,7 +9,7 @@ import {of, Subject} from 'rxjs';
 import {catchError, map, takeUntil} from "rxjs/operators";
 
 import {Product} from 'src/app/models/product';
-import {ProductService} from "../../../services/product.service";
+import {ProductService} from "../../../services/product/product.service";
 import {Action} from "../../../enums/action";
 import {imageUrlValidator} from "../../validators/image-url.validator";
 

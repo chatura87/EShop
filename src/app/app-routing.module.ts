@@ -5,7 +5,7 @@ import {ProductComponent} from "./components/admin/product/product.component";
 import {CartComponent} from "./components/cart/cart.component";
 import {ProductContainerComponent} from "./components/product-container/product-container.component";
 import {UserResolverService} from "./services/user-resolver.service";
-import {AdminGuard} from "./services/admin-guard.service";
+import {AdminGuard} from "./services/guards/admin-guard.service";
 import {UnauthorizedComponent} from "./components/unautorized/unauthorized.component";
 import {WelcomeComponent} from "./components/welcome/welcome.component";
 

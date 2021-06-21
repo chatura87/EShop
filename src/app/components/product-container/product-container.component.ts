@@ -10,7 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Subject} from "rxjs";
 import {debounceTime, switchMap, takeUntil} from "rxjs/operators";
 import {Product} from "../../models/product";
-import {ProductService} from "../../services/product.service";
+import {ProductService} from "../../services/product/product.service";
 import {CommonService} from "../../services/common.service";
 
 @Component({

@@ -16,6 +16,11 @@ export class eShopInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.spinner.show();
 
+    if (!request.headers.has('content-type')) {
+      request = request.clone({headers: request.headers.set('content-type', 'application/json')});
+    }
+    request = request.clone({headers: request.headers.set('Accept', 'application/json')});
+
     if (request.method !== 'GET') {
       return next.handle(request);
     }
@@ -32,7 +37,7 @@ export class eShopInterceptor implements HttpInterceptor {
       retry(2),
       tap((state: HttpEvent<any>) => {
         if (state instanceof HttpResponse) {
-          this.cache.set(request.urlWithParams, state.clone())
+          this.cache.set(request.urlWithParams, state.clone());
           this.spinner.hide();
         }
         return state;
