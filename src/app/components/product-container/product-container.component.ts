@@ -5,12 +5,12 @@ import {
   Component, NgZone,
   OnInit
 } from '@angular/core';
-import { FormControl } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { Subject } from "rxjs";
-import { debounceTime, switchMap, takeUntil } from "rxjs/operators";
-import { Product } from "../../models/product";
-import { ProductService } from "../../services/product.service";
+import {FormControl} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
+import {Subject} from "rxjs";
+import {debounceTime, switchMap, takeUntil} from "rxjs/operators";
+import {Product} from "../../models/product";
+import {ProductService} from "../../services/product.service";
 
 @Component({
   selector: 'app-product-container',
@@ -30,9 +30,9 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
   destroySub = new Subject();
 
   constructor(private readonly route: ActivatedRoute,
-    private readonly productService: ProductService,
-    private readonly changeDetectorRef: ChangeDetectorRef,
-    private zone: NgZone) {
+              private readonly productService: ProductService,
+              private readonly changeDetectorRef: ChangeDetectorRef,
+              private zone: NgZone) {
   }
 
   ngOnInit(): void {

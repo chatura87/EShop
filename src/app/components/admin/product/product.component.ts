@@ -11,6 +11,7 @@ import {catchError, map, takeUntil} from "rxjs/operators";
 import {Product} from 'src/app/models/product';
 import {ProductService} from "../../../services/product.service";
 import {Action} from "../../../enums/action";
+import {imageUrlValidator} from "../../validators/image-url.validator";
 
 @Component({
   selector: 'app-product',
@@ -29,13 +30,14 @@ export class ProductComponent implements OnInit, OnDestroy {
   destroySub = new Subject<void>();
 
   productForm = new FormGroup({
-    id: new FormControl(null),
+    id: new FormControl(-1),
     name: new FormControl('', Validators.required),
     description: new FormControl('', [Validators.required]),
     price: new FormControl('', Validators.required),
     discount: new FormControl(0, [Validators.required]),
-    defaultImage: new FormControl('', Validators.required),
-    images: new FormControl('')
+    defaultImage: new FormControl('', [Validators.required,
+      imageUrlValidator(new RegExp('((http|https)://)[a-z\\d@.\\/]{2,}$', 'i'), {defaultImage: true})]),
+    images: new FormControl('', imageUrlValidator(new RegExp('((http|https)://)[a-z\\d.@\\/,:]{2,}$', 'i'), {images: true}))
   });
 
   constructor(
@@ -70,17 +72,19 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
-    if (this.productForm.value.id > 0) {
-      this.productService.update(this.productForm.value)
-        .pipe(takeUntil(this.destroySub),
-          map((data) => this.onSuccess(data, Action.UPDATE)),
-          catchError(error => of(this.handleError(error)))).subscribe();
-    } else {
-      this.productService.save(this.productForm.value)
-        .pipe(takeUntil(this.destroySub),
-          map((data) => this.onSuccess(data, Action.SAVE)),
-          catchError(error => of(this.handleError(error)))).subscribe();
+  onSubmit(product: Product) {
+    if (this.productForm.valid) {
+      if (product.id > 0) {
+        this.productService.update(product)
+          .pipe(takeUntil(this.destroySub),
+            map((data) => this.onSuccess(data, Action.UPDATE)),
+            catchError(error => of(this.handleError(error)))).subscribe();
+      } else {
+        this.productService.save(product)
+          .pipe(takeUntil(this.destroySub),
+            map((data) => this.onSuccess(data, Action.SAVE)),
+            catchError(error => of(this.handleError(error)))).subscribe();
+      }
     }
   }
 
