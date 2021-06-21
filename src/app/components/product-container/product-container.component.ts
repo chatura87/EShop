@@ -46,8 +46,12 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
       });
     this.productLookup$
       .pipe(
-        debounceTime(500),
+        debounceTime(200),
         switchMap(() => {
+          if (this.filter.value.toString() === '') {
+            return this.productService.filterByPage(1, 30);
+            this.recordCount = 0;
+          }
           return this.productService.fetchtByName(this.filter.value);
         }))
       .subscribe(results => {
@@ -76,7 +80,7 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
       document.addEventListener('scroll', () => {
         let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
         let max = document.documentElement.scrollHeight;
-        if (pos > max - 50) {
+        if (pos > max - 30) {
           this.zone.run(() => {
             this.getFilteredDataSet(++this.page, this.size);
           });

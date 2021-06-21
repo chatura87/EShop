@@ -27,7 +27,9 @@ export class CommonService {
 
   sortByName(list: any[]) {
     return list.sort((a, b) => {
-      return a.name.localeCompare(b.name);
+      if (a.name)
+        return a.name.localeCompare(b.name);
+      else return true;
     })
   }
 }
