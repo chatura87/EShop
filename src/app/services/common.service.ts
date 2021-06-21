@@ -17,11 +17,17 @@ export class CommonService {
     avatar: "",
     email: "",
     id: 0,
-    name: {firstName:'',lastName:''},
+    name: {firstName: '', lastName: ''},
     orders: [],
     phone: "",
     role: UserRole.CUSTOMER
   });
   user$ = this.userSub.asObservable();
 
+
+  sortByName(list: any[]) {
+    return list.sort((a, b) => {
+      return a.name.localeCompare(b.name);
+    })
+  }
 }

@@ -11,6 +11,7 @@ import {Subject} from "rxjs";
 import {debounceTime, switchMap, takeUntil} from "rxjs/operators";
 import {Product} from "../../models/product";
 import {ProductService} from "../../services/product.service";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'app-product-container',
@@ -32,6 +33,7 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
   constructor(private readonly route: ActivatedRoute,
               private readonly productService: ProductService,
               private readonly changeDetectorRef: ChangeDetectorRef,
+              private readonly commonService: CommonService,
               private zone: NgZone) {
   }
 
@@ -50,6 +52,7 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
         }))
       .subscribe(results => {
         this.products = results;
+        this.commonService.sortByName(this.products);
         this.recordCount = results.length;
         this.changeDetectorRef.detectChanges();
       });
@@ -60,6 +63,10 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
       .pipe(takeUntil(this.destroySub))
       .subscribe(products => {
         this.products.push(...products);
+        this.commonService.sortByName(this.products);
+        this.products.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        });
         this.changeDetectorRef.detectChanges();
       })
   }
