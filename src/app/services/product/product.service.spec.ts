@@ -4,7 +4,7 @@ import {
   HttpTestingController
 } from "@angular/common/http/testing";
 import {ProductService} from './product.service';
-import {Product} from "../models/product";
+import {Product} from "../../models/product";
 
 describe('ProductService', () => {
   let productService: ProductService;

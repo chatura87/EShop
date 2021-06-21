@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Route, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
-import {CommonService} from "./common.service";
-import {UserRole} from "../enums/user-role";
+import {CommonService} from "../common.service";
+import {UserRole} from "../../enums/user-role";
 
 @Injectable({
   providedIn: 'root'
