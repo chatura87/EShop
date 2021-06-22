@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {Subject} from "rxjs";
-import {debounceTime, switchMap, takeUntil} from "rxjs/operators";
+import {of, Subject} from "rxjs";
+import {debounceTime, shareReplay, switchMap, takeUntil} from "rxjs/operators";
 import {Product} from "../../models/product";
 import {ProductService} from "../../services/product/product.service";
 import {CommonService} from "../../services/common.service";
@@ -25,7 +25,7 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
   page = 0;
   size = 30;
   recordCount: number = 0;
-  filter = new FormControl('');
+  filter = new FormControl('',);
 
   private productLookup$: Subject<void> = new Subject();
   destroySub = new Subject();
@@ -37,8 +37,7 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
               private zone: NgZone) {
   }
 
-  ngOnInit(): void {
-    this.getDataSetByPageAndSize(this.page, this.size);
+  ngAfterViewInit(): void {
     this.filter.valueChanges
       .pipe(takeUntil(this.destroySub))
       .subscribe(() => {
@@ -48,11 +47,7 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
       .pipe(
         debounceTime(200),
         switchMap(() => {
-          if (this.filter.value.toString() === '') {
-            return this.productService.filterByPage(1, 30);
-            this.recordCount = 0;
-          }
-          return this.productService.fetchtByName(this.filter.value);
+          return this.productService.fetchByName(this.filter.value);
         }))
       .subscribe(results => {
         this.products = results;
@@ -62,35 +57,31 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
       });
   }
 
+  ngOnInit(): void {
+    this.getDataSetByPageAndSize(this.page, this.size);
+  }
+
   /*
  * Fetch a list of product and assign to a template variable
  * @param number page number
  * @param size size of the list
  */
-  private getDataSetByPageAndSize(number: number, size: number):void {
-    this.productService.filterByPage(number, size)
+  private getDataSetByPageAndSize(number: number, size: number): void {
+    this.productService.fetchAll()
       .pipe(takeUntil(this.destroySub))
       .subscribe(products => {
-        this.products.push(...products);
+        this.products = products;
         this.commonService.sortByName(this.products);
-        this.products.sort((a, b) => {
-          return a.name.localeCompare(b.name)
-        });
         this.changeDetectorRef.detectChanges();
       })
   }
 
-  ngAfterViewInit(): void {
-    this.zone.runOutsideAngular(() => {
-      document.addEventListener('scroll', () => {
-        let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-        let max = document.documentElement.scrollHeight;
-        if (pos > max - 30) {
-          this.zone.run(() => {
-            this.getDataSetByPageAndSize(++this.page, this.size);
-          });
-        }
-      });
-    });
+  /*
+  *Track by function for product list
+  * @param index position.
+  * @param product Product model
+  */
+  identity(index: number, product: Product): number {
+    return product.id;
   }
 }

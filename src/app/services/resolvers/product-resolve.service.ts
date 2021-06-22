@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {Product} from "../../models/product";
 import {ProductService} from "../product/product.service";
 
@@ -13,5 +13,6 @@ export class ProductResolveService implements Resolve<Observable<Product[]>>{
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Observable<Product[]>> | Promise<Observable<Product[]>> | Observable<Product[]> {
     return this.productService.filterByPage(0,30);
+    return of([]);
   }
 }

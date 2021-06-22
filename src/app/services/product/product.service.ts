@@ -15,11 +15,11 @@ export class ProductService {
   constructor(private readonly http: HttpClient) {
   }
 
-  fetchtAll(): Observable<Product[]> {
+  fetchAll(): Observable<Product[]> {
     return this.http.get<Product[]>(this.API_URL).pipe(shareReplay({bufferSize: 1, refCount: true}));
   }
 
-  fetchtByName(name: string): Observable<Product[]> {
+  fetchByName(name: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.API_URL}?q=${name}`).pipe(shareReplay({bufferSize: 1, refCount: true}));
   }
 

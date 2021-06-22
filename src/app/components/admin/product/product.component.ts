@@ -28,6 +28,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
 
   destroySub = new Subject<void>();
+  isOpen: boolean = false;
 
   productForm = new FormGroup({
     id: new FormControl(-1),
@@ -46,7 +47,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.productService.fetchtAll()
+    this.productService.fetchAll()
       .pipe(takeUntil(this.destroySub))
       .subscribe(products => {
         this.dataSource = new MatTableDataSource<Product>(products);
@@ -102,10 +103,12 @@ export class ProductComponent implements OnInit, OnDestroy {
   */
   populateFields(row: Product): void {
     this.productForm.patchValue(row);
+    this.isOpen = true;
   }
 
   //TODO: take this to a service
   private onSuccess(data: Product, action: string) {
+    this.isOpen = false;
     this.snackBar.open(`Product ${action} successfully`);
     this.productForm.reset();
     switch (action) {

@@ -35,7 +35,7 @@ beforeEach(() => {
 });
 
 it('should fetch result', (done) => {
-  service.fetchtAll().pipe(take(1)).subscribe(response => {
+  service.fetchAll().pipe(take(1)).subscribe(response => {
     expect(response).toBeTruthy();
     done();
   });

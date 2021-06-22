@@ -38,7 +38,7 @@ describe('ProductService', () => {
 
   it('fetchAll() should return value from observable',
     async (done: DoneFn) => {
-      productService.fetchtAll().subscribe(value => {
+      productService.fetchAll().subscribe(value => {
         expect(value).toBeGreaterThan(0);
         done();
       });

@@ -3,14 +3,18 @@
     <mat-icon>search</mat-icon>
     <mat-form-field appearance="outline">
       <mat-label>Filter</mat-label>
-      <input matInput placeholder="Start typing.." [formControl]="filter" hint="Start typing">
-      <mat-hint *ngIf="recordCount >0">Search has {{recordCount}} records</mat-hint>
+      <input matInput placeholder="Start typing.." [formControl]="filter" hint="Start typing" [attr.aria-label]="'Search field'">
+      <mat-hint *ngIf="filter.value !== ''">Search has {{recordCount}} records</mat-hint>
     </mat-form-field>
   </div>
   <div class="product-item">
-    <ng-container *ngFor="let product of products;index as i">
+
+    <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="50" maxBufferPx="800" class="cdk-viewport">
+    <ng-container *cdkVirtualFor="let product of products;trackBy:identity">
       <app-product-item [product]="product" [attr.aria-label]="'Product card'"></app-product-item>
     </ng-container>
+    </cdk-virtual-scroll-viewport>
+
   </div>
 </div>
 
