@@ -12,6 +12,8 @@ import {Product} from 'src/app/models/product';
 import {ProductService} from "../../../services/product/product.service";
 import {Action} from "../../../enums/action";
 import {imageUrlValidator} from "../../validators/image-url.validator";
+import {CommonService} from "../../../services/common.service";
+import {SnackBarTypes} from "../../../enums/snack-bar-types";
 
 @Component({
   selector: 'app-product',
@@ -36,13 +38,14 @@ export class ProductComponent implements OnInit, OnDestroy {
     description: new FormControl('', [Validators.required]),
     price: new FormControl('', Validators.required),
     discount: new FormControl(0, [Validators.required]),
-    defaultImage: new FormControl('', [Validators.required,
+    defaultImage: new FormControl([], [Validators.required,
       imageUrlValidator(new RegExp('((http|https)://)[a-z\\d@.\\/]{2,}$', 'i'), {defaultImage: true})]),
     images: new FormControl('', imageUrlValidator(new RegExp('((http|https)://)[a-z\\d.@\\/,:]{2,}$', 'i'), {images: true}))
   });
 
   constructor(
     private readonly productService: ProductService,
+    private readonly commonService: CommonService,
     private readonly snackBar: MatSnackBar) {
   }
 
@@ -109,7 +112,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   //TODO: take this to a service
   private onSuccess(data: Product, action: string) {
     this.isOpen = false;
-    this.snackBar.open(`Product ${action} successfully`);
+    this.commonService.openSnackBar(`Product ${action} successfully`, SnackBarTypes.SUCCESS);
     this.productForm.reset();
     switch (action) {
       case Action.DELETE: {
@@ -132,7 +135,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   private handleError(error: any) {
-    this.snackBar.open("Product save failed");
+    this.commonService.openSnackBar(`Product save failed - ${error}`, SnackBarTypes.ERROR);
   }
 
   deleteProduct() {
