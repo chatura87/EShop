@@ -1,6 +1,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '~@angular/material' as mat;
+@import "variables";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -52,4 +53,14 @@ body {
 .mat-grid-tile-content {
   align-items: flex-start !important;
   justify-content: flex-start;
+}
+
+.success-snackbar {
+  background: mat.get-color-from-palette($primaryPalette);
+  color: white;
+}
+
+.error-snackbar {
+  background: mat.get-color-from-palette($warnPalette);
+  color: white;
 }

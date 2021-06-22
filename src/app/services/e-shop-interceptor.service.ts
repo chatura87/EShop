@@ -3,12 +3,16 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, retry, tap} from 'rxjs/operators';
 import {NgxSpinnerService} from "ngx-spinner";
+import {CommonService} from "./common.service";
+import {SnackBarTypes} from "../enums/snack-bar-types";
 
 
 @Injectable()
 export class eShopInterceptor implements HttpInterceptor {
 
-  constructor(private readonly spinner: NgxSpinnerService) {
+  constructor(
+    private readonly spinner: NgxSpinnerService,
+    private readonly commonService: CommonService) {
   }
 
   cache: Map<string, HttpResponse<any>> = new Map();
@@ -43,7 +47,8 @@ export class eShopInterceptor implements HttpInterceptor {
         return state;
       }), catchError(error => {
         this.spinner.hide();
-        return throwError(error)
+        this.commonService.openSnackBar('Something went wrong', SnackBarTypes.ERROR);
+        return throwError(error);
       }))
   }
 }
