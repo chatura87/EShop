@@ -6,6 +6,10 @@
     <mat-card-subtitle>
       Add, update, remove products
     </mat-card-subtitle>
+    <mat-form-field appearance="outline" class="search-field" style="width: 28%">
+      <mat-label>Filter</mat-label>
+      <input matInput placeholder="Start typing" (keyup)="applyFilter($event)">
+    </mat-form-field>
   </mat-card-header>
   <mat-card-content>
     <mat-accordion >
@@ -66,10 +70,6 @@
             </mat-grid-tile>
           </mat-grid-list>
           <mat-card-actions class="footer">
-            <mat-form-field appearance="outline" class="search-field" style="width: 28%">
-              <mat-label>Filter</mat-label>
-              <input matInput placeholder="Start typing" (keyup)="applyFilter($event)">
-            </mat-form-field>
             <button type="submit" mat-raised-button color="primary" matTooltip="Save Product"
                     [attr.aria-label]="'Save or update product'">
               <mat-icon>save_alt</mat-icon>

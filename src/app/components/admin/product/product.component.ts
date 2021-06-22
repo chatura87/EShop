@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -46,7 +46,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   constructor(
     private readonly productService: ProductService,
     private readonly commonService: CommonService,
-    private readonly snackBar: MatSnackBar) {
+    private readonly changeDetectionRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -78,6 +78,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+    this.changeDetectionRef.detectChanges();
   }
 
   onSubmit(product: Product) {
