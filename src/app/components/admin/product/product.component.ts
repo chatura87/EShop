@@ -63,6 +63,10 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
   }
 
+  /*
+  * Filter values in the table
+  * @param event value from the template
+  */
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -92,11 +96,15 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.productForm.reset();
   }
 
+  /*
+  * set values in the form with data from table row
+  * @param row selected product
+  */
   populateFields(row: Product): void {
     this.productForm.patchValue(row);
   }
 
-//TODO: take this to a service
+  //TODO: take this to a service
   private onSuccess(data: Product, action: string) {
     this.snackBar.open(`Product ${action} successfully`);
     this.productForm.reset();

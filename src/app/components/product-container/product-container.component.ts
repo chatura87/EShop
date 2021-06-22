@@ -38,7 +38,7 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.getFilteredDataSet(this.page, this.size);
+    this.getDataSetByPageAndSize(this.page, this.size);
     this.filter.valueChanges
       .pipe(takeUntil(this.destroySub))
       .subscribe(() => {
@@ -62,7 +62,12 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
       });
   }
 
-  private getFilteredDataSet(number: number, size: number) {
+  /*
+ * Fetch a list of product and assign to a template variable
+ * @param number page number
+ * @param size size of the list
+ */
+  private getDataSetByPageAndSize(number: number, size: number):void {
     this.productService.filterByPage(number, size)
       .pipe(takeUntil(this.destroySub))
       .subscribe(products => {
@@ -82,7 +87,7 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
         let max = document.documentElement.scrollHeight;
         if (pos > max - 30) {
           this.zone.run(() => {
-            this.getFilteredDataSet(++this.page, this.size);
+            this.getDataSetByPageAndSize(++this.page, this.size);
           });
         }
       });
