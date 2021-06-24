@@ -13,11 +13,11 @@
   </mat-card-header>
   <mat-card-content>
     <mat-accordion multi="true">
-      <mat-expansion-panel [expanded]="isOpen" (click)="isOpen =!isOpen" >
+      <mat-expansion-panel [expanded]="isOpen" (closed)="isOpen = false" >
         <mat-expansion-panel-header>
           Product form
         </mat-expansion-panel-header>
-        <form (ngSubmit)="onSubmit(form.value)" #form="ngForm" [formGroup]="productForm" id="formID">
+        <form (ngSubmit)="onSubmit(form.value)" #form="ngForm" [formGroup]="productForm" id="formID" color="primary">
           <mat-grid-list cols="2" rowHeight="320px">
             <mat-grid-tile>
               <mat-card class="mat-card-in-grid">
