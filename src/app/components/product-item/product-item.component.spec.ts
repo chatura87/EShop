@@ -17,7 +17,7 @@ describe('ProductItemComponent', () => {
     fixture = TestBed.createComponent(ProductItemComponent);
     component = fixture.componentInstance;
     component._product = {
-      id: '1',
+      id: 1,
       name: "John",
       description: "test description",
       discount: 30,
