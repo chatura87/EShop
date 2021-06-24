@@ -32,7 +32,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   isOpen: boolean = false;
 
   productForm = new FormGroup({
-    id: new FormControl(-1),
+    id: new FormControl(null),
     name: new FormControl('', Validators.required),
     description: new FormControl('', [Validators.required]),
     price: new FormControl('', Validators.required),
@@ -149,5 +149,9 @@ export class ProductComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroySub.next();
     this.destroySub.complete();
+  }
+
+  close() {
+    console.log('close')
   }
 }
