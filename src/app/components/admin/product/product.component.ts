@@ -150,8 +150,4 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.destroySub.next();
     this.destroySub.complete();
   }
-
-  close() {
-    console.log('close')
-  }
 }
