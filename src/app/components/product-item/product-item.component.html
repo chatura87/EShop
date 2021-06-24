@@ -1,11 +1,11 @@
 <mat-card>
-  <h2>{{_product.name}}</h2>
+  <h2>{{_product?.name}}</h2>
   <mat-card-content>
     <mat-grid-list cols="2">
       <mat-grid-tile>
-        <img [src]="_product.defaultImage">
+        <app-picture [url]="_product?.defaultImage"></app-picture>
       </mat-grid-tile>
-      <mat-grid-tile class="col-2">{{_product.description}}</mat-grid-tile>
+      <mat-grid-tile class="col-2">{{_product?.description}}</mat-grid-tile>
     </mat-grid-list>
   </mat-card-content>
   <hr>

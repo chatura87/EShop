@@ -3,7 +3,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatSnackBar} from "@angular/material/snack-bar";
 
 import {of, Subject} from 'rxjs';
 import {catchError, map, takeUntil} from "rxjs/operators";

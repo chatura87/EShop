@@ -1,7 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ProductContainerComponent } from './product-container.component';
-import {ActivatedRoute, Router, RouterModule} from "@angular/router";
+import {ProductContainerComponent} from './product-container.component';
+import {ActivatedRoute, RouterModule} from "@angular/router";
+import {ReactiveFormsModule} from "@angular/forms";
 
 describe('ProductContainerComponent', () => {
   let component: ProductContainerComponent;
@@ -9,10 +10,11 @@ describe('ProductContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductContainerComponent ],
-      imports:[RouterModule.forRoot([])]
+      declarations: [ProductContainerComponent],
+      imports: [RouterModule.forRoot([]), ReactiveFormsModule],
+      providers:[ActivatedRoute]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

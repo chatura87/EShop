@@ -2,13 +2,15 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component, NgZone,
+  Component,
+  NgZone,
+  OnDestroy,
   OnInit
 } from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {of, Subject} from "rxjs";
-import {debounceTime, shareReplay, switchMap, takeUntil} from "rxjs/operators";
+import {Subject} from "rxjs";
+import {debounceTime, switchMap, takeUntil} from "rxjs/operators";
 import {Product} from "../../models/product";
 import {ProductService} from "../../services/product/product.service";
 import {CommonService} from "../../services/common.service";
@@ -19,7 +21,7 @@ import {CommonService} from "../../services/common.service";
   styleUrls: ['./product-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductContainerComponent implements OnInit, AfterViewInit {
+export class ProductContainerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   products: Product[] = [];
   page = 0;
@@ -83,5 +85,10 @@ export class ProductContainerComponent implements OnInit, AfterViewInit {
   */
   identity(index: number, product: Product): number {
     return product.id;
+  }
+
+  ngOnDestroy(): void {
+    this.destroySub.next();
+    this.destroySub.complete();
   }
 }

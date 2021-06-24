@@ -22,6 +22,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import {ScrollDirective} from "./directive/scroll.directive";
 import {LimitChars} from "./pipes/limt-chars";
 import {NumberOnlyDirective} from "./directive/number-only.directive";
+import {PictureComponent} from "./components/picture/picture.component";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {NumberOnlyDirective} from "./directive/number-only.directive";
     WelcomeComponent,
     ScrollDirective,
     LimitChars,
-    NumberOnlyDirective
+    NumberOnlyDirective,
+    PictureComponent
   ],
   imports: [
     BrowserModule,
